@@ -14,11 +14,11 @@ An Named Binary Tag library built including VarInt support introduced by Minecra
 </repositories>
 
 <dependencies>
-<dependency>
-    <groupId>com.github.AllayMC</groupId>
-    <artifactId>NBT</artifactId>
-    <version>3.0.1.Final</version>
-</dependency>
+    <dependency>
+        <groupId>com.github.AllayMC</groupId>
+        <artifactId>NBT</artifactId>
+        <version>3.0.1.Final</version>
+    </dependency>
 </dependencies>
 ```
 
