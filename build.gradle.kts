@@ -10,6 +10,7 @@ description = "A library for reading and writing NBT data."
 
 repositories {
     mavenCentral()
+    maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
