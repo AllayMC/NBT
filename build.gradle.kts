@@ -2,6 +2,7 @@
 
 plugins {
     id("java-library")
+    id("maven-publish")
     alias(libs.plugins.checkerframework)
 }
 
@@ -27,6 +28,46 @@ dependencies {
 java {
     withJavadocJar()
     withSourcesJar()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            pom {
+                name.set("NBT")
+                packaging = "jar"
+                description.set("A library for reading and writing NBT data.")
+                url.set("https://github.com/AllayMC/NBT")
+
+                scm {
+                    connection.set("scm:git:git://github.com/AllayMC/NBT.git")
+                    developerConnection.set("scm:git:ssh:/github.com/AllayMC/NBT.git")
+                    url.set("https://github.com/AllayMC/NBT")
+                }
+
+                licenses {
+                    license {
+                        name.set("The Apache Software License, Version 2.0")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+
+                developers {
+                    developer {
+                        name.set("CloudburstMC Team")
+                        organization.set("CloudburstMC")
+                        organizationUrl.set("https://github.com/CloudburstMC")
+                    }
+                    developer {
+                        name.set("AllayMC Team")
+                        organization.set("AllayMC")
+                        organizationUrl.set("https://github.com/AllayMC")
+                    }
+                }
+            }
+        }
+    }
 }
 
 tasks {
