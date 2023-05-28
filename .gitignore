@@ -280,9 +280,3 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
-
-# End of https://www.toptal.com/developers/gitignore/api/gradle,intellij+all,windows,linux,macos,git,eclipse,netbeans
-
-gradlew
-gradlew.bat
-gradle/wrapper/gradle-wrapper.jar
