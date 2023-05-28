@@ -5,17 +5,29 @@ An Named Binary Tag library built including VarInt support introduced by Minecra
 
 #### Maven
 ```xml
-    <dependencies>
-        <dependency>
-            <groupId>org.cloudburstmc</groupId>
-            <artifactId>nbt</artifactId>
-            <version>3.0.0.Final</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+<dependency>
+    <groupId>com.github.AllayMC</groupId>
+    <artifactId>NBT</artifactId>
+    <version>3.0.1.Final</version>
+</dependency>
+</dependencies>
 ```
 
 #### Gradle (Kotlin DSL)
+
 ```kt
-implementation("org.cloudburstmc:nbt:3.0.0.Final")
+repositories {
+    maven { url = uri("https://jitpack.io") }
+}
+
+implementation("com.github.AllayMC:NBT:3.0.1.Final")
 ```
