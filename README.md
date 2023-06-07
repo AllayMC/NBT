@@ -1,4 +1,5 @@
 # NBT
+[![](https://jitpack.io/v/AllayMC/NBT.svg)](https://jitpack.io/#AllayMC/NBT)  
 An Named Binary Tag library built including VarInt support introduced by Minecraft: Bedrock Edition in 0.16.0
 
 ### Dependency 
@@ -17,7 +18,7 @@ An Named Binary Tag library built including VarInt support introduced by Minecra
     <dependency>
         <groupId>com.github.AllayMC</groupId>
         <artifactId>NBT</artifactId>
-        <version>3.0.1.Final</version>
+        <version>3.0.3</version>
     </dependency>
 </dependencies>
 ```
@@ -29,5 +30,5 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-implementation("com.github.AllayMC:NBT:3.0.1.Final")
+implementation("com.github.AllayMC:NBT:3.0.3")
 ```
