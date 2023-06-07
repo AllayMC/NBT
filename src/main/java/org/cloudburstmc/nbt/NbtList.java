@@ -20,6 +20,12 @@ public class NbtList<E> extends AbstractList<E> {
         this.array = collection.toArray(array);
     }
 
+    @SuppressWarnings("unchecked")
+    protected NbtList() {
+        this.type = (NbtType<E>) NbtType.END;
+        this.array = (E[]) new Object[]{};
+    }
+
     @SafeVarargs
     public NbtList(NbtType<E> tagClass, E... array) {
         this.type = requireNonNull(tagClass, "tagClass");
@@ -86,5 +92,13 @@ public class NbtList<E> extends AbstractList<E> {
                 return sb.append('\n').append(']').toString();
             sb.append(',').append('\n');
         }
+    }
+
+    public String toSNBT(){
+        return SNBTPrinter.toSNBT(this);
+    }
+
+    public String toSNBT(int space){
+        return SNBTPrinter.toSNBT(this,space);
     }
 }

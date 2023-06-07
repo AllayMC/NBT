@@ -89,6 +89,11 @@ public class NbtMapBuilder extends LinkedHashMap<String, Object> {
         return this;
     }
 
+    public NbtMapBuilder putEnd(String name) {
+        super.put(name, NbtType.END);
+        return this;
+    }
+
     @SafeVarargs
     public final <T> NbtMapBuilder putList(String name, NbtType<T> type, T... values) {
         this.put(name, new NbtList<>(type, values));

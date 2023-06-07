@@ -418,4 +418,12 @@ public class NbtMap extends AbstractMap<String, Object> {
             sb.append(',').append('\n');
         }
     }
+
+    public String toSNBT(){
+        return SNBTPrinter.toSNBT(this);
+    }
+
+    public String toSNBT(int space){
+        return SNBTPrinter.toSNBT(this,space);
+    }
 }

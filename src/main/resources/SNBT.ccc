@@ -1,0 +1,109 @@
+//Powered by congo-cc https://github.com/congo-cc/congo-parser-generator
+PARSER_PACKAGE="cn.allay.snbt";
+NODE_PACKAGE="cn.allay.snbt.ast";
+DEFAULT_LEXICAL_STATE=SNBT;
+PARSER_CLASS="SNBTParserImplement";
+
+SKIP : <WHITESPACE : (" "| "\t"| "\n"| "\r")+>; 
+
+// Delimiters
+TOKEN #Delimiter :
+    <COLON : ':'>
+    |
+    <COMMA : ','>
+    |
+    <OPEN_BRACKET : '['>
+    |
+    <CLOSE_BRACKET : ']'>
+    |
+    <OPEN_BRACE : "{" >
+    |
+    <CLOSE_BRACE : "}">
+    |
+    <SEMICOLON : ';'>
+    |
+    <FLOAT_TYPE: ('f'|'F')>
+    |
+    <DOUBLE_TYPE: ('d'|'D')>
+    |
+    <LONG_TYPE: ('l'|'L')>
+    |
+    <BYTE_TYPE: ('b'|'B')>
+    |
+    <SHORT_TYPE: ('s'|'S')>
+;
+
+// Literals
+TOKEN #Literal :
+    <#ZERO : "0">
+    |
+    <#NON_ZERO : (['1'-'9'])(["0"-"9"])*>
+    |
+    <#FRACTION : "." (["0"-"9"])+>
+    |
+    <#EXPONENT : ["E","e"](["+","-"])?(["1"-"9"])+>
+    |
+    <BOOLEAN: 'false' | 'true'>
+    |
+    <FLOAT : ("-")?(<ZERO>|<NON_ZERO>)(<FRACTION>)?(<EXPONENT>)? ('f'|'F')>
+    |
+    <DOUBLE : ("-")?(<ZERO>|<NON_ZERO>)(<FRACTION>)?(<EXPONENT>)? ('d'|'D')>
+    |
+    <INTEGER : ("-")?(<ZERO>|<NON_ZERO>)>
+    |
+    <BYTE : <INTEGER> <BYTE_TYPE>>
+    |
+    <LONG : <INTEGER> <LONG_TYPE>>
+    |
+    <SHORT : <INTEGER> <SHORT_TYPE>>
+    |
+    <STRING : '"' (~['"'] | ('\\' '"'))* '"' | "'" (~["'"] | ('\\' "'"))* "'">
+;
+
+//Value Node
+Value :
+    <BYTE>
+    |
+    <LONG>
+    |
+    <SHORT>
+    |
+    <INTEGER>
+    |
+    <FLOAT>
+    |
+    <DOUBLE>
+    |
+    <BOOLEAN>
+    |
+    <STRING>
+    |
+    ByteArrayNBT
+    |
+    IntArrayNBT
+    |
+    LongArrayNBT
+    |
+    CompoundNBT
+    |
+    ListNBT
+;
+
+KeyValuePair : <STRING> <COLON> (Value)?;
+
+ByteArrayNBT :
+    <OPEN_BRACKET> 'B' <SEMICOLON> =>|| ( (<BYTE>| <BOOLEAN>) (<COMMA> (<BYTE> | <BOOLEAN>))* (<COMMA>)?)? <CLOSE_BRACKET>
+;
+IntArrayNBT :
+    <OPEN_BRACKET> 'I' <SEMICOLON> =>|| (<INTEGER> (<COMMA> <INTEGER>)* (<COMMA>)?)? <CLOSE_BRACKET>
+;
+LongArrayNBT :
+    <OPEN_BRACKET> 'L' <SEMICOLON> =>|| (<LONG> (<COMMA> <LONG>)* (<COMMA>)?)? <CLOSE_BRACKET>
+;
+ListNBT :
+    <OPEN_BRACKET> (Value (<COMMA> Value)*)? <CLOSE_BRACKET>
+;
+CompoundNBT : <OPEN_BRACE> (KeyValuePair (<COMMA> KeyValuePair)*)? <CLOSE_BRACE>;
+
+//Root Node
+Root : Value <EOF>;
