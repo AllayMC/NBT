@@ -18,7 +18,7 @@ An Named Binary Tag library built including VarInt support introduced by Minecra
     <dependency>
         <groupId>com.github.AllayMC</groupId>
         <artifactId>NBT</artifactId>
-        <version>3.0.3</version>
+        <version>3.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -30,5 +30,5 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-implementation("com.github.AllayMC:NBT:3.0.3")
+implementation("com.github.AllayMC:NBT:3.0.4")
 ```
