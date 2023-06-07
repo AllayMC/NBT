@@ -30,6 +30,9 @@ java {
     withSourcesJar()
 }
 
+java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
@@ -72,7 +75,7 @@ publishing {
 
 tasks {
     compileJava {
-        options.encoding = Charsets.UTF_8.name();
+        options.encoding = Charsets.UTF_8.name()
     }
     javadoc {
         isFailOnError = false
