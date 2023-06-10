@@ -1,7 +1,6 @@
 package org.cloudburstmc.nbt;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.cloudburstmc.nbt.util.UnmodifiableEntrySet;
 import org.cloudburstmc.nbt.util.function.*;
 
 import java.util.*;
@@ -10,67 +9,25 @@ import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
 
-public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
-    public static final NbtMap EMPTY = new NbtMap();
-
+/**
+ * Author: Cool_Loong <br>
+ * Date: 6/10/2023 <br>
+ * Allay Project
+ */
+public class MutableNbtMap extends NbtMapBuilder implements NBTReader{
     private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
     private static final int[] EMPTY_INT_ARRAY = new int[0];
     private static final long[] EMPTY_LONG_ARRAY = new long[0];
 
-    private final Map<String, Object> map;
-
-    private transient Set<String> keySet;
-    private transient Set<Map.Entry<String, Object>> entrySet;
-    private transient Collection<Object> values;
-    private transient boolean hashCodeGenerated;
-    private transient int hashCode;
-
-    private NbtMap() {
-        this.map = new LinkedHashMap<>();
-    }
-
-    NbtMap(Map<String, Object> map) {
-        this.map = map;
-    }
-
-    public static NbtMapBuilder builder() {
-        return new NbtMapBuilder();
-    }
-
-    public static NbtMap fromMap(Map<String, Object> map) {
-        return new NbtMap(Collections.unmodifiableMap(map));
-    }
-
-    public NbtMapBuilder toBuilder() {
-        return NbtMapBuilder.from(this);
+    public static MutableNbtMap from(NbtMap map) {
+        MutableNbtMap builder = new MutableNbtMap();
+        builder.putAll(map);
+        return builder;
     }
 
     public boolean containsKey(String key, NbtType<?> type) {
-        Object o = this.map.get(key);
+        Object o = this.get(key);
         return o != null && o.getClass() == type.getTagClass();
-    }
-
-    @Override
-    public Object get(Object key) {
-        return NbtUtils.copy(this.map.get(key));
-    }
-
-    @Override
-    public Set<String> keySet() {
-        if (keySet == null) keySet = Collections.unmodifiableSet(this.map.keySet());
-        return keySet;
-    }
-
-    @Override
-    public Set<Map.Entry<String, Object>> entrySet() {
-        if (entrySet == null) entrySet = new UnmodifiableEntrySet<>(this.map.entrySet());
-        return entrySet;
-    }
-
-    @Override
-    public Collection<Object> values() {
-        if (values == null) values = Collections.unmodifiableCollection(this.map.values());
-        return values;
     }
 
     public boolean getBoolean(String key) {
@@ -78,7 +35,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Byte) {
             return ((byte) tag) != 0;
         }
@@ -86,7 +43,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForBoolean(String key, BooleanConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Byte) {
             consumer.accept(((byte) tag) != 0);
         }
@@ -97,7 +54,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public byte getByte(String key, byte defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Byte) {
             return (byte) tag;
         }
@@ -105,7 +62,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForByte(String key, ByteConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Byte) {
             consumer.accept((byte) tag);
         }
@@ -116,7 +73,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public short getShort(String key, short defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Short) {
             return (short) tag;
         }
@@ -124,7 +81,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForShort(String key, ShortConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Short) {
             consumer.accept((short) tag);
         }
@@ -135,7 +92,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public int getInt(String key, int defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Integer) {
             return (int) tag;
         }
@@ -143,7 +100,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForInt(String key, IntConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Integer) {
             consumer.accept((int) tag);
         }
@@ -154,7 +111,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public long getLong(String key, long defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Long) {
             return (long) tag;
         }
@@ -162,7 +119,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForLong(String key, LongConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Long) {
             consumer.accept((long) tag);
         }
@@ -173,7 +130,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public float getFloat(String key, float defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Float) {
             return (float) tag;
         }
@@ -181,7 +138,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForFloat(String key, FloatConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Float) {
             consumer.accept((float) tag);
         }
@@ -192,7 +149,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public double getDouble(String key, double defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Double) {
             return (double) tag;
         }
@@ -200,7 +157,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForDouble(String key, DoubleConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Double) {
             consumer.accept((double) tag);
         }
@@ -211,7 +168,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public String getString(String key, @Nullable String defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof String) {
             return (String) tag;
         }
@@ -219,7 +176,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForString(String key, Consumer<String> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof String) {
             consumer.accept((String) tag);
         }
@@ -230,7 +187,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public byte[] getByteArray(String key, @Nullable byte[] defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof byte[]) {
             byte[] bytes = (byte[]) tag;
             return Arrays.copyOf(bytes, bytes.length);
@@ -239,7 +196,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForByteArray(String key, Consumer<byte[]> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof byte[]) {
             byte[] bytes = (byte[]) tag;
             consumer.accept(Arrays.copyOf(bytes, bytes.length));
@@ -251,7 +208,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public int[] getIntArray(String key, @Nullable int[] defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof int[]) {
             int[] ints = (int[]) tag;
             return Arrays.copyOf(ints, ints.length);
@@ -260,7 +217,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForIntArray(String key, Consumer<int[]> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof int[]) {
             int[] ints = (int[]) tag;
             consumer.accept(Arrays.copyOf(ints, ints.length));
@@ -272,7 +229,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public long[] getLongArray(String key, @Nullable long[] defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof long[]) {
             long[] longs = (long[]) tag;
             return Arrays.copyOf(longs, longs.length);
@@ -281,7 +238,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForLongArray(String key, Consumer<long[]> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof long[]) {
             long[] longs = (long[]) tag;
             consumer.accept(Arrays.copyOf(longs, longs.length));
@@ -289,11 +246,11 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public NbtMap getCompound(String key) {
-        return this.getCompound(key, EMPTY);
+        return this.getCompound(key, NbtMap.EMPTY);
     }
 
     public NbtMap getCompound(String key, @Nullable NbtMap defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof NbtMap) {
             return (NbtMap) tag;
         }
@@ -301,7 +258,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForCompound(String key, Consumer<NbtMap> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof NbtMap) {
             consumer.accept((NbtMap) tag);
         }
@@ -313,7 +270,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
 
     @SuppressWarnings("unchecked")
     public <T> List<T> getList(String key, NbtType<T> type, @Nullable List<T> defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof NbtList && ((NbtList<?>) tag).getType() == type) {
             return (NbtList<T>) tag;
         }
@@ -322,7 +279,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
 
     @SuppressWarnings("unchecked")
     public <T> void listenForList(String key, NbtType<T> type, Consumer<List<T>> consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof NbtList<?> && ((NbtList<?>) tag).getType() == type) {
             consumer.accept((NbtList<T>) tag);
         }
@@ -333,7 +290,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public Number getNumber(String key, Number defaultValue) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Number) {
             return (Number) tag;
         }
@@ -341,7 +298,7 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
     }
 
     public void listenForNumber(String key, NumberConsumer consumer) {
-        Object tag = this.map.get(key);
+        Object tag = this.get(key);
         if (tag instanceof Number) {
             consumer.accept((Number) tag);
         }
@@ -352,19 +309,13 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
         if (o == this)
             return true;
 
-        if (!(o instanceof Map))
+        if (!(o instanceof Map<?, ?> m))
             return false;
-        Map<?, ?> m = (Map<?, ?>) o;
         if (m.size() != size())
             return false;
 
-        if (this.hashCodeGenerated && o instanceof NbtMap && ((NbtMap) o).hashCodeGenerated &&
-                this.hashCode != ((NbtMap) o).hashCode) {
-            return false;
-        }
-
         try {
-            for (Entry<String, Object> e : entrySet()) {
+            for (Map.Entry<String, Object> e : entrySet()) {
                 String key = e.getKey();
                 Object value = e.getValue();
                 if (value == null) {
@@ -380,43 +331,6 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
         }
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        if (this.hashCodeGenerated)
-            return this.hashCode;
-        int h = 0;
-        for (Entry<String, Object> stringObjectEntry : this.map.entrySet())
-            h += stringObjectEntry.hashCode();
-        this.hashCode = h;
-        this.hashCodeGenerated = true;
-        return h;
-    }
-
-    @Override
-    public String toString() {
-        return mapToString(this.map);
-    }
-
-    static String mapToString(Map<String, Object> map) {
-        Iterator<Entry<String, Object>> i = map.entrySet().iterator();
-        if (!i.hasNext())
-            return "{}";
-
-        StringBuilder sb = new StringBuilder();
-        sb.append('{').append('\n');
-        for (; ; ) {
-            Entry<String, Object> e = i.next();
-            String key = e.getKey();
-            String value = NbtUtils.toString(e.getValue());
-
-            String string = NbtUtils.indent("\"" + key + "\": " + value);
-            sb.append(string);
-            if (!i.hasNext())
-                return sb.append('\n').append('}').toString();
-            sb.append(',').append('\n');
-        }
     }
 
     public String toSNBT(){

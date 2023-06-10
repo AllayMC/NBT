@@ -130,15 +130,15 @@ public final class SNBTPrinter {
             } else if (o instanceof NbtList<?> list) {
                 maxDepth++;
                 return toSNBT(list);
-            } else if (o instanceof NbtMap map) {
+            } else if (o instanceof NBTReader reader) {
                 maxDepth++;
-                return toSNBT(map);
+                return toSNBT(reader);
             }
             throw new IllegalArgumentException();
         }
 
-        public String toSNBT(NbtMap map) {
-            Iterator<Map.Entry<String, Object>> i = map.entrySet().iterator();
+        public String toSNBT(NBTReader reader) {
+            Iterator<Map.Entry<String, Object>> i = reader.entrySet().iterator();
             if (!i.hasNext()) {
                 maxDepth--;
                 return "{}";
@@ -221,14 +221,14 @@ public final class SNBTPrinter {
                 return "";
             } else if (o instanceof NbtList<?> list) {
                 return toSNBT(list);
-            } else if (o instanceof NbtMap map) {
-                return toSNBT(map);
+            } else if (o instanceof NBTReader reader) {
+                return toSNBT(reader);
             }
             throw new IllegalArgumentException();
         }
 
-        public String toSNBT(NbtMap map) {
-            Iterator<Map.Entry<String, Object>> i = map.entrySet().iterator();
+        public String toSNBT(NBTReader reader) {
+            Iterator<Map.Entry<String, Object>> i = reader.entrySet().iterator();
             if (!i.hasNext()) {
                 return "{}";
             }
