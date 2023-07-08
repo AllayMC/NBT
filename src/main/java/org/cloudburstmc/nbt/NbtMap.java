@@ -1,16 +1,19 @@
 package org.cloudburstmc.nbt;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.cloudburstmc.nbt.annotation.NBT;
 import org.cloudburstmc.nbt.util.UnmodifiableEntrySet;
 import org.cloudburstmc.nbt.util.function.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.DoubleConsumer;
 import java.util.function.IntConsumer;
 import java.util.function.LongConsumer;
 
-public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
+public class NbtMap extends AbstractMap<String, Object> implements NBTReader {
     public static final NbtMap EMPTY = new NbtMap();
 
     private static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
@@ -39,6 +42,25 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
 
     public static NbtMap fromMap(Map<String, Object> map) {
         return new NbtMap(Collections.unmodifiableMap(map));
+    }
+
+    public static NbtMap fromRecord(Record record) {
+        Class<? extends Record> clazz = record.getClass();
+        NBT annotation = clazz.getAnnotation(NBT.class);
+        if (annotation == null) {
+            throw new IllegalArgumentException("This record does not use @NBT annotation!");
+        }
+        NbtMapBuilder builder = new NbtMapBuilder();
+        for (var c : clazz.getRecordComponents()) {
+            String name = c.getName();
+            Method accessor = c.getAccessor();
+            try {
+                builder.put(name, accessor.invoke(record));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return builder.build();
     }
 
     public NbtMapBuilder toBuilder() {
@@ -419,11 +441,11 @@ public class NbtMap extends AbstractMap<String, Object> implements NBTReader{
         }
     }
 
-    public String toSNBT(){
+    public String toSNBT() {
         return SNBTPrinter.toSNBT(this);
     }
 
-    public String toSNBT(int space){
-        return SNBTPrinter.toSNBT(this,space);
+    public String toSNBT(int space) {
+        return SNBTPrinter.toSNBT(this, space);
     }
 }

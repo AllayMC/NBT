@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Date: 6/10/2023 <br>
  * Allay Project
  */
-public class MutableNbtTests {
+public class MutableNbtTest {
     static MutableNbtMap nbt;
 
     static {

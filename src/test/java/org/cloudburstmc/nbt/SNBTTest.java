@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Date: 6/7/2023 <br>
  * Allay Project
  */
-public class SNBTTests {
+public class SNBTTest {
     @Test
     void TestDeserializationSNBT() {
         var str = """

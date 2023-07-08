@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
-class NbtTests {
+class NbtTest {
 
     private static final SecureRandom RANDOM = new SecureRandom();
 
@@ -79,7 +79,7 @@ class NbtTests {
     @Test
     @DisplayName("Biome Definitions Test")
     void biomeDefinitionsTest() {
-        InputStream stream = NbtTests.class.getClassLoader().getResourceAsStream("biome_definitions.nbt");
+        InputStream stream = NbtTest.class.getClassLoader().getResourceAsStream("biome_definitions.nbt");
         try (NBTInputStream in = NbtUtils.createNetworkReader(stream)) {
             Object o = in.readTag();
         } catch (Exception e) {
