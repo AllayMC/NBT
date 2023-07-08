@@ -7,9 +7,13 @@ import org.cloudburstmc.nbt.util.stream.NetworkDataInputStream;
 import org.cloudburstmc.nbt.util.stream.NetworkDataOutputStream;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.RecordComponent;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.StringJoiner;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
@@ -168,5 +172,37 @@ public class NbtUtils {
             }
         }
         return builder.build();
+    }
+
+    /**
+     * Create record instance annotated with {@link NBT} from nbtMap
+     *
+     * @param <T>    the type parameter
+     * @param clazz  the record class
+     * @param nbtMap the nbt map
+     * @return the record
+     */
+    public static <T extends Record> T createRecordFromNBT(Class<T> clazz, NbtMap nbtMap) {
+        NBT annotation = clazz.getAnnotation(NBT.class);
+        if (annotation == null) {
+            throw new IllegalArgumentException("This record does not use @NBT annotation!");
+        }
+        RecordComponent[] recordComponents = clazz.getRecordComponents();
+        List<Object> params = new ArrayList<>(recordComponents.length);
+        for (var c : recordComponents) {
+            params.add(nbtMap.get(c.getName()));
+        }
+        try {
+            Constructor<T> constructor = clazz.getDeclaredConstructor(Arrays.stream(recordComponents).map(RecordComponent::getType).toArray(Class[]::new));
+            try {
+                constructor.setAccessible(true);
+                return constructor.newInstance(params.toArray());
+            } finally {
+                constructor.setAccessible(false);
+            }
+        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
+                 IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -69,6 +69,17 @@ class NbtTest {
     }
 
     @Test
+    void testCreateRecordFromNBT() {
+        NbtMap map = SNBTParser.parse(NbtType.COMPOUND, """
+                {"a":1,"b":2,"c":3}""");
+        @NBT
+        record Data(int a, int b, int c) {
+        }
+        Data data = NbtUtils.createRecordFromNBT(Data.class, map);
+        Assertions.assertEquals(new Data(1, 2, 3), data);
+    }
+
+    @Test
     void testPutRecordToNBT() {
         @NBT
         record Data(int a, int b, int c) {
