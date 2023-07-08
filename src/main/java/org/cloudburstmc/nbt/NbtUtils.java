@@ -1,11 +1,14 @@
 package org.cloudburstmc.nbt;
 
+import org.cloudburstmc.nbt.annotation.NBT;
 import org.cloudburstmc.nbt.util.stream.LittleEndianDataInputStream;
 import org.cloudburstmc.nbt.util.stream.LittleEndianDataOutputStream;
 import org.cloudburstmc.nbt.util.stream.NetworkDataInputStream;
 import org.cloudburstmc.nbt.util.stream.NetworkDataOutputStream;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.StringJoiner;
 import java.util.zip.GZIPInputStream;
@@ -139,5 +142,31 @@ public class NbtUtils {
             r.append(HEX_CODE[(b & 0xF)]);
         }
         return r.toString();
+    }
+
+    /**
+     * Write each {@link java.lang.reflect.RecordComponent RecordComponent} from record that be marked {@link NBT} to the specified nbtMap
+     *
+     * @param record the record
+     * @param nbtMap the nbtmap
+     * @return result NBT
+     */
+    public static NbtMap putRecordToNBT(Record record, NbtMap nbtMap) {
+        Class<? extends Record> clazz = record.getClass();
+        NBT annotation = clazz.getAnnotation(NBT.class);
+        if (annotation == null) {
+            throw new IllegalArgumentException("This record does not use @NBT annotation!");
+        }
+        NbtMapBuilder builder = NbtMapBuilder.from(nbtMap);
+        for (var c : clazz.getRecordComponents()) {
+            String name = c.getName();
+            Method accessor = c.getAccessor();
+            try {
+                builder.put(name, accessor.invoke(record));
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return builder.build();
     }
 }

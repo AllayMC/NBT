@@ -69,6 +69,18 @@ class NbtTest {
     }
 
     @Test
+    void testPutRecordToNBT() {
+        @NBT
+        record Data(int a, int b, int c) {
+        }
+        NbtMapBuilder builder = new NbtMapBuilder();
+        builder.putString("test", "test nbt");
+        NbtMap build = builder.build();
+        Assertions.assertEquals(NbtUtils.putRecordToNBT(new Data(1, 2, 3), build).toSNBT(), """
+                {"test":"test nbt","a":1,"b":2,"c":3}""");
+    }
+
+    @Test
     @DisplayName("Network Encoding Test")
     void networkTest() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -92,7 +104,7 @@ class NbtTest {
     void biomeDefinitionsTest() {
         InputStream stream = NbtTest.class.getClassLoader().getResourceAsStream("biome_definitions.nbt");
         try (NBTInputStream in = NbtUtils.createNetworkReader(stream)) {
-            Object o = in.readTag();
+            NbtMap o = (NbtMap) in.readTag();
         } catch (Exception e) {
             e.printStackTrace();
             throw new AssertionError("Error whilst decoding tag", e);
