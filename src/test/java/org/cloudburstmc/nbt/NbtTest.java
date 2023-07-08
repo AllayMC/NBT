@@ -1,6 +1,7 @@
 package org.cloudburstmc.nbt;
 
 
+import org.cloudburstmc.nbt.annotation.NBT;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,16 @@ class NbtTest {
 
         builder.put("BooleanTest2", RANDOM.nextBoolean());
         TEST_MAP = builder.build();
+    }
+
+    @Test
+    void createNbtFromRecord() {
+        @NBT
+        record Data(int a, int b, int c) {
+        }
+        Data data = new Data(1, 2, 3);
+        Assertions.assertEquals(NbtMap.fromRecord(data).toSNBT(), """
+                {"a":1,"b":2,"c":3}""");
     }
 
     @Test
