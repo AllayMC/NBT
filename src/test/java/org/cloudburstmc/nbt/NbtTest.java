@@ -121,4 +121,15 @@ class NbtTest {
             throw new AssertionError("Error whilst decoding tag", e);
         }
     }
+
+    @Test
+    void creativeItemsTest() throws IOException {
+        InputStream stream = NbtTest.class.getClassLoader().getResourceAsStream("creative_items.nbt");
+        try (NBTInputStream in = NbtUtils.createGZIPReader(stream)) {
+            NbtMap o = (NbtMap) in.readTag();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new AssertionError("Error whilst decoding tag", e);
+        }
+    }
 }
