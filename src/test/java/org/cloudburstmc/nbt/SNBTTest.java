@@ -29,6 +29,7 @@ public class SNBTTest {
                 .putDouble("test6", 2.333)
                 .putShort("test7", (short) 2131)
                 .putByteArray("test8", new byte[]{1, 2, 3, 4, 5})
+                .putEnd("test9")
                 .putList("list1", NbtType.LIST,
                         new NbtList<>(NbtType.INT, 2, 3),
                         new NbtList<>(NbtType.DOUBLE, 3.33, 4.44),
