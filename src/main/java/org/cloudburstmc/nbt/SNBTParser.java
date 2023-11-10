@@ -1,10 +1,10 @@
 package org.cloudburstmc.nbt;
 
-import cn.allay.snbt.Node;
-import cn.allay.snbt.ParseException;
-import cn.allay.snbt.SNBTParserImplement;
-import cn.allay.snbt.Token;
-import cn.allay.snbt.ast.*;
+import org.allaymc.snbt.Node;
+import org.allaymc.snbt.ParseException;
+import org.allaymc.snbt.SNBTParserImplement;
+import org.allaymc.snbt.Token;
+import org.allaymc.snbt.ast.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;

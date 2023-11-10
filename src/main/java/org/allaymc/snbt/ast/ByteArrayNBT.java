@@ -2,7 +2,7 @@
 * Generated Code for ByteArrayNBT AST Node type
 * by the ASTNode.java.ftl template
 */
-package cn.allay.snbt.ast;
+package org.allaymc.snbt.ast;
 
 public class ByteArrayNBT extends BaseNode {
 }

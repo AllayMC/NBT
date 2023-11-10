@@ -1,6 +1,6 @@
 //Powered by congo-cc https://github.com/congo-cc/congo-parser-generator
-PARSER_PACKAGE="cn.allay.snbt";
-NODE_PACKAGE="cn.allay.snbt.ast";
+PARSER_PACKAGE="org.allaymc.snbt";
+NODE_PACKAGE="org.allaymc.snbt.ast";
 DEFAULT_LEXICAL_STATE=SNBT;
 PARSER_CLASS="SNBTParserImplement";
 

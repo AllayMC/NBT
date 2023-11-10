@@ -2,10 +2,10 @@
 * Generated Code for Literal Token subclass
 * by the ASTToken.java.ftl template
 */
-package cn.allay.snbt.ast;
+package org.allaymc.snbt.ast;
 
-import cn.allay.snbt.SNBTLexer;
-import cn.allay.snbt.Token;
+import org.allaymc.snbt.SNBTLexer;
+import org.allaymc.snbt.Token;
 
 
 public class Literal extends Token {

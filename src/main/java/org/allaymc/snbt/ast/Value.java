@@ -2,7 +2,7 @@
 * Generated Code for Value AST Node type
 * by the ASTNode.java.ftl template
 */
-package cn.allay.snbt.ast;
+package org.allaymc.snbt.ast;
 
 public class Value extends BaseNode {
 }

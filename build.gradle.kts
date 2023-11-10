@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.checkerframework)
 }
 
-group = "cn.allay"
+group = "org.allaymc"
 description = "A library for reading and writing NBT data."
 
 repositories {
