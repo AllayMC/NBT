@@ -17,7 +17,7 @@ An Named Binary Tag library built including VarInt support introduced by Minecra
     <dependency>
         <groupId>com.github.AllayMC</groupId>
         <artifactId>NBT</artifactId>
-        <version>3.0.8</version>
+        <version>3.0.9</version>
     </dependency>
 </dependencies>
 ```
