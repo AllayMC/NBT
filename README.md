@@ -29,5 +29,5 @@ repositories {
     maven { url = uri("https://jitpack.io") }
 }
 
-implementation("com.github.AllayMC:NBT:3.0.8")
+implementation("com.github.AllayMC:NBT:3.0.9")
 ```
