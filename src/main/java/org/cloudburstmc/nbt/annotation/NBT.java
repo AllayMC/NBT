@@ -1,6 +1,5 @@
 package org.cloudburstmc.nbt.annotation;
 
-
 import org.cloudburstmc.nbt.NbtMap;
 
 import java.lang.annotation.ElementType;

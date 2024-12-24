@@ -1,6 +1,11 @@
 # NBT
 [![](https://jitpack.io/v/AllayMC/NBT.svg)](https://jitpack.io/#AllayMC/NBT)  
-A Named Binary Tag library built including VarInt support introduced by Minecraft: Bedrock Edition in 0.16.0
+NBT library used by Allay which is originally forked from https://github.com/CloudburstMC/NBT
+
+This fork has the following extra features:
+- MutableNbtMap
+- SNBT support
+- Convenient conversion between `record` and NBT by using `@nbt` annotation
 
 ### Dependency 
 
