@@ -1,5 +1,6 @@
 # NBT
 ![nbt](https://img.shields.io/maven-central/v/org.allaymc/nbt?label=nbt&link=https%3A%2F%2Fcentral.sonatype.com%2Fartifact%2Forg.allaymc%2Fnbt)
+
 NBT library used by Allay which is originally forked from https://github.com/CloudburstMC/NBT
 
 This fork has the following extra features:
