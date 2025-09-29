@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "org.allaymc"
-version="3.0.10"
+version = "3.0.10"
 
 tasks {
     withType<JavaCompile> {
