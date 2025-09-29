@@ -1,5 +1,5 @@
 # NBT
-[![](https://jitpack.io/v/AllayMC/NBT.svg)](https://jitpack.io/#AllayMC/NBT)  
+![nbt](https://img.shields.io/maven-central/v/org.allaymc/nbt?label=nbt&link=https%3A%2F%2Fcentral.sonatype.com%2Fartifact%2Forg.allaymc%2Fnbt)
 NBT library used by Allay which is originally forked from https://github.com/CloudburstMC/NBT
 
 This fork has the following extra features:
@@ -11,17 +11,10 @@ This fork has the following extra features:
 
 #### Maven
 ```xml
-<repositories>
-    <repository>
-        <id>jitpack.io</id>
-        <url>https://jitpack.io</url>
-    </repository>
-</repositories>
-
 <dependencies>
     <dependency>
-        <groupId>com.github.AllayMC</groupId>
-        <artifactId>NBT</artifactId>
+        <groupId>org.allaymc</groupId>
+        <artifactId>nbt</artifactId>
         <version>3.0.10</version>
     </dependency>
 </dependencies>
@@ -31,8 +24,8 @@ This fork has the following extra features:
 
 ```kt
 repositories {
-    maven { url = uri("https://jitpack.io") }
+    mavenCentral()
 }
 
-implementation("com.github.AllayMC:NBT:3.0.10")
+implementation("org.allaymc:nbt:3.0.10")
 ```
