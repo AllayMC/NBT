@@ -1,14 +1,14 @@
 [versions]
-checkerframework = "3.26.0"
-jmh = "1.27"
+checkerframework = "3.51.1"
+jmh = "1.37"
 
 [libraries]
 checker-qual = { group = "org.checkerframework", name = "checker-qual", version.ref = "checkerframework" }
 checker = { group = "org.checkerframework", name = "checker", version.ref = "checkerframework" }
 jmh-core = { group = "org.openjdk.jmh", name = "jmh-core", version.ref = "jmh" }
 jmh-generator-annprocess = { group = "org.openjdk.jmh", name = "jmh-generator-annprocess", version.ref = "jmh" }
-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "5.13.4" }
-junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.13.4" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "6.0.0" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "6.0.0" }
 
 [bundles]
 
