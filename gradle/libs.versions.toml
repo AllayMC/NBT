@@ -13,5 +13,5 @@ junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform
 [bundles]
 
 [plugins]
-checkerframework = { id = "org.checkerframework", version = "0.6.59" }
+checkerframework = { id = "org.checkerframework", version = "0.6.60" }
 publish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
