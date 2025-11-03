@@ -7,11 +7,11 @@ checker-qual = { group = "org.checkerframework", name = "checker-qual", version.
 checker = { group = "org.checkerframework", name = "checker", version.ref = "checkerframework" }
 jmh-core = { group = "org.openjdk.jmh", name = "jmh-core", version.ref = "jmh" }
 jmh-generator-annprocess = { group = "org.openjdk.jmh", name = "jmh-generator-annprocess", version.ref = "jmh" }
-junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "6.0.0" }
-junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "6.0.0" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version = "6.0.1" }
+junit-platform-launcher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "6.0.1" }
 
 [bundles]
 
 [plugins]
-checkerframework = { id = "org.checkerframework", version = "0.6.59" }
+checkerframework = { id = "org.checkerframework", version = "0.6.60" }
 publish = { id = "com.vanniktech.maven.publish", version = "0.34.0" }
