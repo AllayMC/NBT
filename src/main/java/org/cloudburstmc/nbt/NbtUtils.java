@@ -183,6 +183,19 @@ public class NbtUtils {
         return r.toString();
     }
 
+    public static int hashCode(Object object) {
+        if (object instanceof byte[]) {
+            return Arrays.hashCode((byte[]) object);
+        }
+        if (object instanceof int[]) {
+            return Arrays.hashCode((int[]) object);
+        }
+        if (object instanceof long[]) {
+            return Arrays.hashCode((long[]) object);
+        }
+        return object.hashCode();
+    }
+
     /**
      * Write each {@link java.lang.reflect.RecordComponent RecordComponent} from record that be marked {@link NBT} to the specified nbtMap
      *
